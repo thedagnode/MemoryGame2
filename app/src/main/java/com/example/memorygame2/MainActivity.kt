@@ -14,10 +14,11 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.boardRV.adapter = MemoryBoardAdapter(this, 8)
+        val columns = 3
+        val rows = 5
+        binding.boardRV.adapter = MemoryBoardAdapter(this, columns, rows)
         binding.boardRV.setHasFixedSize(true)
-        binding.boardRV.layoutManager = GridLayoutManager(this, 2)
-
+        binding.boardRV.layoutManager = GridLayoutManager(this, columns)
 
 
 
