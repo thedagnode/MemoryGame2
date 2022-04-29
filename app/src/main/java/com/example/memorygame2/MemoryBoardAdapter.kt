@@ -21,7 +21,6 @@ class MemoryBoardAdapter(private val context: Context, private var boardSize: Bo
         */
         val view = MemoryCardBinding.inflate(LayoutInflater.from(context) )
 
-        // when using viewbinding
         val cardWidth = parent.width/boardSize.getColumns()
         val cardHeight = parent.height/boardSize.getRows()
         val cardSideLength = min(cardWidth, cardHeight)
