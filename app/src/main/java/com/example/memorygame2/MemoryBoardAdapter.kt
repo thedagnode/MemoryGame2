@@ -42,7 +42,15 @@ class MemoryBoardAdapter(private val context: Context, private val columns: Int,
         holder.bind(position)
     }
 
-    override fun getItemCount() = columns*rows
+    override fun getItemCount(): Int {
+        var itemCount = columns*rows
+
+        if( itemCount % 2 != 0 ){
+            itemCount--
+        }
+
+        return itemCount
+    }
 
 
 
@@ -63,6 +71,7 @@ class MemoryBoardAdapter(private val context: Context, private val columns: Int,
         fun bind(position: Int){
             memoryCardBinding.memoryCardBtn.setOnClickListener {
                 Log.i(this.toString(),"Clicked on position $position")
+
             }
         }
 
