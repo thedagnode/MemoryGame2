@@ -6,9 +6,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.memorygame2.databinding.MemoryCardBinding
+import com.example.memorygame2.models.BoardSize
 import kotlin.math.min
 
-class MemoryBoardAdapter(private val context: Context, private val columns: Int, private val rows: Int)
+class MemoryBoardAdapter(private val context: Context, private var boardSize: BoardSize)
     : RecyclerView.Adapter<MemoryBoardAdapter.ViewHolder>() {
 
 
@@ -21,11 +22,11 @@ class MemoryBoardAdapter(private val context: Context, private val columns: Int,
         val view = MemoryCardBinding.inflate(LayoutInflater.from(context) )
 
         // when using viewbinding
-        val cardWidth = parent.width/columns
-        val cardHeight = parent.height/rows
+        val cardWidth = parent.width/boardSize.getColumns()
+        val cardHeight = parent.height/boardSize.getRows()
         val cardSideLength = min(cardWidth, cardHeight)
 
-        val adjHeight = (parent.height-(cardSideLength*rows))/rows
+        val adjHeight = (parent.height-(cardSideLength*boardSize.getRows()))/boardSize.getRows()
         view.cardView.layoutParams.width = cardSideLength
         view.cardView.layoutParams.height = cardSideLength+adjHeight
 
@@ -43,13 +44,8 @@ class MemoryBoardAdapter(private val context: Context, private val columns: Int,
     }
 
     override fun getItemCount(): Int {
-        var itemCount = columns*rows
+        return boardSize.getNumItems()
 
-        if( itemCount % 2 != 0 ){
-            itemCount--
-        }
-
-        return itemCount
     }
 
 
@@ -70,7 +66,7 @@ class MemoryBoardAdapter(private val context: Context, private val columns: Int,
 
         fun bind(position: Int){
             memoryCardBinding.memoryCardBtn.setOnClickListener {
-                Log.i(this.toString(),"Clicked on position $position")
+                Log.i(this.toString(),"Clicked on position $position" )
 
             }
         }
