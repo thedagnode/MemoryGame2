@@ -23,13 +23,14 @@ class MemoryGame(private val boardSize : BoardSize) {
 
         var foundMatch = false
 
+        // first card flip
         if( firstSelCard == null){
             restoreCards()
             firstSelCard = position
         }
 
-        // because this is the check for the match when the second
-        // card has been selected
+
+        // second card flip
         else {
             foundMatch = checkForMatch(firstSelCard!!, position)
             firstSelCard = null

@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
 
         // create the game
         setup()
-
+        difficultyDialog()
 
 
     }
@@ -107,8 +107,7 @@ class MainActivity : AppCompatActivity() {
         mAlertDialog.setTitle("You won!") //set alertdialog title
         mAlertDialog.setMessage("Play again or exit?") //set alertdialog message
         mAlertDialog.setPositiveButton("Play again") { dialog, id ->
-
-            setup()
+            difficultyDialog()
             //binding.boardRV.adapter?.notifyDataSetChanged()
             //Toast.makeText(this@MainActivity, "Yes", Toast.LENGTH_SHORT).show()
         }
@@ -126,20 +125,23 @@ class MainActivity : AppCompatActivity() {
 
         if (level.equals("EASY")){
             boardSize = BoardSize.EASY
+            Toast.makeText(this@MainActivity, "EASY", Toast.LENGTH_SHORT).show()
         }
 
         if (level.equals("MEDIUM")){
             boardSize = BoardSize.MEDIUM
+            Toast.makeText(this@MainActivity, "Yes", Toast.LENGTH_SHORT).show()
         }
 
         if (level.equals("HARD")){
             boardSize = BoardSize.HARD
+            Toast.makeText(this@MainActivity, "Yes", Toast.LENGTH_SHORT).show()
         }
         */
 
 
 
-    private fun showAlertDialog() : String {
+    private fun difficultyDialog() : String {
         val list = listOf("EASY", "MEDIUM", "HARD")
         val adapter = ArrayAdapter<CharSequence>(this, R.layout.view_checked_textview, list)
         var which = 0
@@ -151,6 +153,14 @@ class MainActivity : AppCompatActivity() {
             checkedTv.isChecked = true
 
             Toast.makeText(this, list[which], Toast.LENGTH_SHORT).show()
+            when(list[which]){
+                "EASY" ->  boardSize = BoardSize.EASY
+                "MEDIUM" ->  boardSize = BoardSize.MEDIUM
+                "HARD" ->  boardSize = BoardSize.HARD
+            }
+
+            setup()
+
             Handler().postDelayed({
                 dialog.dismiss()
             }, 500L)
@@ -159,6 +169,7 @@ class MainActivity : AppCompatActivity() {
 
         ad.create().show()
         return list[which]
+
     }
 
 
