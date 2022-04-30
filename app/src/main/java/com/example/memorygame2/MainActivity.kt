@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
     // difficulty 4:10:15
     private var numMoves = 0
 
-    private var boardSize : BoardSize  = BoardSize(BoardSize.Difficulty.EASY.numPairs)
+    private var boardSize : BoardSize  = BoardSize.EASY
     // or choose freely
     //private var boardSize : BoardSize  = BoardSize(6)
 
@@ -29,29 +29,15 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
+        //boardSize = BoardSize.HARD
         // create the game
-        memoryGame = MemoryGame(boardSize)
-
-        binding.boardRV.adapter = MemoryBoardAdapter(this, boardSize, memoryGame.cards, object: MemoryBoardAdapter.CardClickListener{
-            override fun onCardClicked(position: Int) {
-                updateGameWithFlip(position)
-            }
-
-        })
-
-        binding.boardRV.setHasFixedSize(true)
-        binding.boardRV.layoutManager = GridLayoutManager(this, boardSize.getColumns())
-
-        // init text views
-        binding.numPairsTV.text = "0/${boardSize.numPairs.toString()}"
+        setup()
 
 
 
     }
 
     private fun updateGameWithFlip(position: Int) {
-
-
 
         if (!memoryGame.isCardFaceUp(position)){
 
@@ -67,11 +53,33 @@ class MainActivity : AppCompatActivity() {
             if(memoryGame.haveWonGame()){
                 //Snackbar.make(binding.root, "You won", Snackbar.LENGTH_LONG).show()
                 gameWonDialog()
-                //memoryGame.resetGame()
+
             }
         }
 
     }
+
+
+
+
+    private fun setup(){
+        memoryGame = MemoryGame(boardSize)
+
+        binding.boardRV.adapter = MemoryBoardAdapter(this, boardSize, memoryGame.cards, object: MemoryBoardAdapter.CardClickListener{
+            override fun onCardClicked(position: Int) {
+                updateGameWithFlip(position)
+            }
+
+        })
+
+        binding.boardRV.setHasFixedSize(true)
+        binding.boardRV.layoutManager = GridLayoutManager(this, boardSize.getColumns())
+
+        // init text views
+        binding.numPairsTV.text = "0/${boardSize.numPairs.toString()}"
+    }
+
+
 
 
 
@@ -82,8 +90,10 @@ class MainActivity : AppCompatActivity() {
         mAlertDialog.setTitle("You won!") //set alertdialog title
         mAlertDialog.setMessage("Play again or exit?") //set alertdialog message
         mAlertDialog.setPositiveButton("Play again") { dialog, id ->
-            //perform some tasks here
-            binding.boardRV.adapter?.notifyDataSetChanged()
+
+            //boardSize = BoardSize.HARD
+            setup()
+            //binding.boardRV.adapter?.notifyDataSetChanged()
             //Toast.makeText(this@MainActivity, "Yes", Toast.LENGTH_SHORT).show()
         }
         mAlertDialog.setNegativeButton("Exit") { dialog, id ->
@@ -94,6 +104,9 @@ class MainActivity : AppCompatActivity() {
         mAlertDialog.show()
 
     }
+
+
+
 
 
 }
