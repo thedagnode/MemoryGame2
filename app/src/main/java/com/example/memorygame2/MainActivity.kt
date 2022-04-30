@@ -32,7 +32,22 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
-        //boardSize = BoardSize.HARD
+        /*
+        var level = showAlertDialog()
+
+        if (level.equals("EASY")){
+            boardSize = BoardSize.EASY
+        }
+
+        if (level.equals("MEDIUM")){
+            boardSize = BoardSize.MEDIUM
+        }
+
+        if (level.equals("HARD")){
+            boardSize = BoardSize.HARD
+        }
+        */
+
         // create the game
         setup()
 
@@ -66,9 +81,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun setup(){
-
         memoryGame = MemoryGame(boardSize)
-
         binding.boardRV.adapter = MemoryBoardAdapter(this, boardSize, memoryGame.cards, object: MemoryBoardAdapter.CardClickListener{
             override fun onCardClicked(position: Int) {
                 updateGameWithFlip(position)
@@ -108,7 +121,21 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+        /*
+        var level = showAlertDialog()
 
+        if (level.equals("EASY")){
+            boardSize = BoardSize.EASY
+        }
+
+        if (level.equals("MEDIUM")){
+            boardSize = BoardSize.MEDIUM
+        }
+
+        if (level.equals("HARD")){
+            boardSize = BoardSize.HARD
+        }
+        */
 
 
 
@@ -128,9 +155,7 @@ class MainActivity : AppCompatActivity() {
                 dialog.dismiss()
             }, 500L)
 
-
         }
-
 
         ad.create().show()
         return list[which]
