@@ -18,13 +18,9 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var memoryGame: MemoryGame
     private lateinit var binding: ActivityMainBinding
-    // difficulty 4:10:15
-    private var numMoves = 0
     private lateinit var textviewBinding: ViewCheckedTextviewBinding
 
     private var boardSize : BoardSize  = BoardSize.EASY
-    // or choose freely
-    //private var boardSize : BoardSize  = BoardSize(6)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
