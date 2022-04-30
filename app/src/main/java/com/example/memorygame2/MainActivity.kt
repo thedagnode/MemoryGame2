@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter
 import android.widget.CheckedTextView
 import android.widget.Toast
 import androidx.core.view.children
+import androidx.core.view.get
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.memorygame2.databinding.ActivityMainBinding
 import com.example.memorygame2.databinding.MemoryCardBinding
@@ -35,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
+        textviewBinding = ViewCheckedTextviewBinding.inflate(layoutInflater)
         /*
         var level = showAlertDialog()
 
@@ -149,11 +150,12 @@ class MainActivity : AppCompatActivity() {
         val list = listOf("EASY", "MEDIUM", "HARD")
 
         val adapter = ArrayAdapter<CharSequence>(this, R.layout.view_checked_textview, list)
+
         var which = 0
 
         val ad = AlertDialog.Builder(this)
         ad.setTitle("Choose your difficulty level")
-        ad.setSingleChoiceItems(adapter, -1) { dialog, which ->
+        ad.setSingleChoiceItems(adapter, -1) { dialog, which->
             val checkedTv = adapter.getView(which, null, binding.root) as CheckedTextView
             checkedTv.isChecked = true
 
@@ -166,9 +168,8 @@ class MainActivity : AppCompatActivity() {
 
             setup()
 
-            Handler().postDelayed({
-                dialog.dismiss()
-            }, 500L)
+
+            dialog.dismiss()
 
         }
 
