@@ -8,9 +8,9 @@ enum class BoardSize(val numPairs : Int){
     // I also made an option and added this so that one of three layouts can be selected.
     // They are however run through the parent class using the same logic to create the layout.
 
-        EASY(4),
-        MEDIUM(10),
-        HARD(15);
+    EASY(4),
+    MEDIUM(10),
+    HARD(15);
 
     // some expressions to decide how to arrange the rows and colums based on num pairs
     private var columns = floor(sqrt(numPairs.toDouble()*2)).toInt()

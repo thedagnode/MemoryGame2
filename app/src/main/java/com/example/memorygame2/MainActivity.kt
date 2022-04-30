@@ -1,21 +1,16 @@
 package com.example.memorygame2
 
 import android.app.AlertDialog
-import android.app.Dialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import android.view.LayoutInflater
 import android.widget.ArrayAdapter
 import android.widget.CheckedTextView
 import android.widget.Toast
-import androidx.core.view.children
-import androidx.core.view.get
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.memorygame2.databinding.ActivityMainBinding
-import com.example.memorygame2.databinding.MemoryCardBinding
 import com.example.memorygame2.databinding.ViewCheckedTextviewBinding
 import com.example.memorygame2.models.BoardSize
+import com.example.memorygame2.models.MemoryCard
 import com.example.memorygame2.models.MemoryGame
 import com.google.android.material.snackbar.Snackbar
 
@@ -36,25 +31,12 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        textviewBinding = ViewCheckedTextviewBinding.inflate(layoutInflater)
-        /*
-        var level = showAlertDialog()
+        //textviewBinding = ViewCheckedTextviewBinding.inflate(layoutInflater)
+        // wanted to use this in line: 121, but couldn't figure out how to use
+        // viewbinding with ArrayAdapter.
 
-        if (level.equals("EASY")){
-            boardSize = BoardSize.EASY
-        }
-
-        if (level.equals("MEDIUM")){
-            boardSize = BoardSize.MEDIUM
-        }
-
-        if (level.equals("HARD")){
-            boardSize = BoardSize.HARD
-        }
-        */
-
-        // create the game
-        setup()
+        // I want to start the game with a bank board
+        // and then show alert dialog with options
         difficultyDialog()
 
 
@@ -84,7 +66,6 @@ class MainActivity : AppCompatActivity() {
 
 
 
-
     private fun setup(){
         memoryGame = MemoryGame(boardSize)
         binding.boardRV.adapter = MemoryBoardAdapter(this, boardSize, memoryGame.cards, object: MemoryBoardAdapter.CardClickListener{
@@ -93,7 +74,6 @@ class MainActivity : AppCompatActivity() {
             }
 
         })
-
         binding.boardRV.setHasFixedSize(true)
         binding.boardRV.layoutManager = GridLayoutManager(this, boardSize.getColumns())
 
@@ -125,24 +105,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-        /*
-        var level = showAlertDialog()
-
-        if (level.equals("EASY")){
-            boardSize = BoardSize.EASY
-            Toast.makeText(this@MainActivity, "EASY", Toast.LENGTH_SHORT).show()
-        }
-
-        if (level.equals("MEDIUM")){
-            boardSize = BoardSize.MEDIUM
-            Toast.makeText(this@MainActivity, "Yes", Toast.LENGTH_SHORT).show()
-        }
-
-        if (level.equals("HARD")){
-            boardSize = BoardSize.HARD
-            Toast.makeText(this@MainActivity, "Yes", Toast.LENGTH_SHORT).show()
-        }
-        */
 
 
 
@@ -159,6 +121,7 @@ class MainActivity : AppCompatActivity() {
             val checkedTv = adapter.getView(which, null, binding.root) as CheckedTextView
             checkedTv.isChecked = true
 
+            // here we decide which difficulty level
             Toast.makeText(this, list[which], Toast.LENGTH_SHORT).show()
             when(list[which]){
                 "EASY" ->  boardSize = BoardSize.EASY
@@ -166,8 +129,8 @@ class MainActivity : AppCompatActivity() {
                 "HARD" ->  boardSize = BoardSize.HARD
             }
 
+            // and then create that board
             setup()
-
 
             dialog.dismiss()
 
