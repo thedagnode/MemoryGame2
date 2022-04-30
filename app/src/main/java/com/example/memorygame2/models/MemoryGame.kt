@@ -28,6 +28,8 @@ class MemoryGame(private val boardSize : BoardSize) {
             firstSelCard = position
         }
 
+        // because this is the check for the match when the second
+        // card has been selected
         else {
             foundMatch = checkForMatch(firstSelCard!!, position)
             firstSelCard = null
@@ -72,13 +74,5 @@ class MemoryGame(private val boardSize : BoardSize) {
     }
 
 
-    fun resetGame(){
-        for(card in cards){
-            card.isFaceUp = false
-            card.isMatched = false
-        }
-        numMoves=0
-        numPairsFound=0
-        firstSelCard = null
-    }
+
 }

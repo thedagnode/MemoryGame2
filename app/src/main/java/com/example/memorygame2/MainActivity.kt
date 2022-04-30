@@ -83,7 +83,6 @@ class MainActivity : AppCompatActivity() {
         mAlertDialog.setMessage("Play again or exit?") //set alertdialog message
         mAlertDialog.setPositiveButton("Play again") { dialog, id ->
             //perform some tasks here
-            memoryGame.resetGame()
             binding.boardRV.adapter?.notifyDataSetChanged()
             //Toast.makeText(this@MainActivity, "Yes", Toast.LENGTH_SHORT).show()
         }
